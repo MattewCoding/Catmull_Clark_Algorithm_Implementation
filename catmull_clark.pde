@@ -14,12 +14,8 @@ void setup(){
 }
 
 void drawCube(){
-  Face f = new Face();
-  f.addPoint(50, 50, 0);
-  f.addPoint(50, 150, 0);
-  f.addPoint(150, 150, 0);
-  f.addPoint(150, 50, 0);
-  f.displayFace();
+  Shape f = new Shape(new Point(200, 100, 0), 50);
+  f.displayShape();
 }
 
 void draw(){
@@ -29,8 +25,8 @@ void draw(){
   
   translate(width/2, 2*height/5);
   //rotateX(-0.33);
-  rotateY(mouseX/float(width) * PI);
-  box(75);
+  rotateY(mouseX/float(width) * PI * 2);
+  box(50);
   
   drawCube();
 }
