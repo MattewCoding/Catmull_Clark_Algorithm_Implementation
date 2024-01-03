@@ -16,6 +16,9 @@ class Shape{
     addFace(x,y,z);
   }
   
+  /**
+   * Créer un cube
+   */
   Shape(Point centre, float taille){
     float trueTaille = taille/2;
     float x = centre.x;
@@ -24,8 +27,8 @@ class Shape{
     
     faces.add(new Face(new Point(x+trueTaille,y,z), taille, new Point(0, PI/2, 0)));
     faces.add(new Face(new Point(x-trueTaille,y,z), taille, new Point(0, PI/2, 0)));
-    faces.add(new Face(new Point(x,y+trueTaille,z), taille));
-    faces.add(new Face(new Point(x,y-trueTaille,z), taille));
+    faces.add(new Face(new Point(x,y+trueTaille,z), taille, new Point(PI/2, 0, 0)));
+    faces.add(new Face(new Point(x,y-trueTaille,z), taille, new Point(PI/2, 0, 0)));
     faces.add(new Face(new Point(x,y,z+trueTaille), taille));
     faces.add(new Face(new Point(x,y,z-trueTaille), taille));
   }

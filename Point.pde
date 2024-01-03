@@ -4,9 +4,9 @@
  */
 
 class Point {
-  private float x;
-  private float y;
-  private float z;
+  private float x=0.0;
+  private float y=0.0;
+  private float z=0.0;
   
   /**
    * Initialiser un point

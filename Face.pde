@@ -88,7 +88,7 @@ class Face{
       float y = (float) (taille * Math.sin(angle));
   
       // Ajout du point avec une valeur arbitraire (50.0) à la liste
-      points.add(new Point(x, y, centre.z));
+      points.add(new Point(x, y, 0));
     }
     
     // Affichage d'une ligne vide
@@ -123,6 +123,15 @@ class Face{
    */
   public ArrayList<Point> getPoints(){
     return points;
+  }
+  
+  /**
+   * Récupère la liste des points de la face.
+   *
+   * @return La liste des points de la face.
+   */
+  public int getSize(){
+    return points.size();
   }
   
   /**

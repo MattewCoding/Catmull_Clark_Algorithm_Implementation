@@ -14,7 +14,7 @@ void setup(){
 }
 
 void drawCube(){
-  Shape f = new Shape(new Point(200, 100, 0), 50);
+  Shape f = new Shape(new Point(50, 50, 0), 50);
   f.displayShape();
 }
 
