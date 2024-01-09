@@ -63,4 +63,11 @@ class Point {
     println(x + " " + y + " " + z);
   }
   
+  void displayPoint(){
+    pushMatrix();
+    translate(x,y,z);
+    sphere(5);
+    popMatrix();
+  }
+  
 }

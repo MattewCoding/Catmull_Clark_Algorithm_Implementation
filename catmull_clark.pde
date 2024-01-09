@@ -14,8 +14,18 @@ void setup(){
 }
 
 void drawCube(){
-  Shape f = new Shape(new Point(50, 50, 0), 50);
-  f.displayShape();
+  Shape s = new Shape(new Point(50, 50, 0), 50);
+  s.displayShape();
+  
+  Face f = new Face(new Point(100, 200, 100), 50, new Point(0.0,0.0,(float)Math.PI/4));
+  f.displayFace();
+  
+  Face fReal = getRealPosition(f);
+  ArrayList<Point> ps = fReal.getPoints();
+  for(Point p:ps){
+    p.displayPoint();
+    print("\n");
+  }
 }
 
 void draw(){
@@ -26,7 +36,7 @@ void draw(){
   translate(width/2, 2*height/5);
   //rotateX(-0.33);
   rotateY(mouseX/float(width) * PI * 2);
-  box(50);
+  //box(50);
   
   drawCube();
 }

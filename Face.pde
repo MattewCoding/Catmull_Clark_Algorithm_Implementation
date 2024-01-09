@@ -6,7 +6,7 @@
 class Face{
   private ArrayList<Point> points = new ArrayList<Point>();
   private Point centre = new Point(0,0,0);
-  private Point rotation = new Point(0,0,0);
+  private Point rotation = new Point(0,0,0); // En radians
   
   /**
    * Initialiser une facette
@@ -116,6 +116,19 @@ class Face{
     points.add(new Point(x, y, z));
   }
   
+  public void modifyNthPoint(int value, Point newPoint){
+    points.set(value, newPoint);
+  }
+  
+  /**
+   * Récupère le nième point de la face.
+   *
+   * @return Le nième point de la face.
+   */
+  public Point getNthPoint(int i){
+    return points.get(i);
+  }
+  
   /**
    * Récupère la liste des points de la face.
    *
@@ -123,6 +136,24 @@ class Face{
    */
   public ArrayList<Point> getPoints(){
     return points;
+  }
+  
+  /**
+   * Récupère le centre de la face.
+   *
+   * @return Le centre de la face.
+   */
+  public Point getCentre(){
+    return centre;
+  }
+  
+  /**
+   * Récupère la rotation de la face.
+   *
+   * @return La rotation de la face.
+   */
+  public Point getRotation(){
+    return rotation;
   }
   
   /**
@@ -148,7 +179,7 @@ class Face{
       for(Point p : points){
         vertex(p.getX(), p.getY(), p.getZ());
       }
-      endShape(CLOSE);
+      endShape();
     popMatrix();
   }
 }
