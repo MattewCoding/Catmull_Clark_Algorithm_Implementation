@@ -22,6 +22,20 @@ class Face{
   }
   
   /**
+   * Make a deep copy of a Face
+   *
+   * @param f The face we are making a deep copy of
+   */
+  Face(Face f){
+    this.points = new ArrayList<Point>();
+    for(Point p : f.getPoints()){
+      this.points.add(new Point(p));
+    }
+    this.centre = new Point(f.getCentre());
+    this.rotation = new Point(f.getRotation());
+  }
+  
+  /**
    * Crée une facette avec un nombre spécifié de côtés et une taille donnée,
    * qui fait face à l'utilisateur.
    * 
@@ -92,7 +106,7 @@ class Face{
     }
     
     // Affichage d'une ligne vide
-    print("\n");
+    System.out.print("\n");
   }
 
   
@@ -165,6 +179,15 @@ class Face{
     return points.size();
   }
   
+  public String toString() {
+    Face realPositionFace = getRealPosition(this);
+    for(Point p : realPositionFace.getPoints()){
+      print(p);
+      print("\n");
+    }
+    return "";
+  }
+
   /**
    * Affiche la face en utilisant les points spécifiés pour former une forme fermée.
    * Utilise la méthode beginShape(), vertex() et endShape(CLOSE) de la bibliothèque de traitement graphique.

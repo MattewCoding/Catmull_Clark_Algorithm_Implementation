@@ -19,6 +19,32 @@ class Shape{
   }
   
   /**
+   * Make a deep copy of a Shape
+   *
+   * @param s The shape we are making a deep copy of
+   */
+  Shape(Shape s){
+    this.faces = new ArrayList<Face>();
+    for(Face f : s.getFaces()){
+      this.faces.add(new Face(f));
+    }
+    
+    this.pointsUsed = new ArrayList<ArrayList<Integer>>();
+    for(ArrayList<Integer> innerList : s.getPointsUsed()) {
+      ArrayList<Integer> copiedInnerList = new ArrayList<>(innerList);
+      this.pointsUsed.add(copiedInnerList);
+    }
+    
+    this.points = new HashMap<Integer, Point>();
+    for (Integer intKey : s.getPoints().keySet()) {
+      Point originalPoint = s.getPoints().get(intKey);
+      Point copiedPoint = new Point(originalPoint);
+      this.points.put(intKey, copiedPoint);
+    }
+    
+  }
+  
+  /**
    * Créer un cube
    */
   Shape(Point centre, float taille){
@@ -30,8 +56,8 @@ class Shape{
     Face rightFace = new Face(new Point(x+trueTaille,y,z), taille, new Point(0, PI/2, 0));
     Face leftFace = new Face(new Point(x-trueTaille,y,z), taille, new Point(0, PI/2, 0));
     
-    ArrayList<Point> allPoints = rightFace.getPoints();
-    allPoints.addAll(leftFace.getPoints());
+    ArrayList<Point> allPoints = getRealPosition(rightFace).getPoints();
+    allPoints.addAll(getRealPosition(leftFace).getPoints());
     for(int i = 0; i<allPoints.size(); i++){
       points.put(i, allPoints.get(i));
     }
@@ -49,7 +75,7 @@ class Shape{
     ArrayList<Integer> t = new ArrayList<>(Arrays.asList(0,1,2,3));
     
     faces.add(new Face(new Point(x,y,z+trueTaille), taille));
-    ArrayList<Integer> f = new ArrayList<>(Arrays.asList(0,1,2,3));
+    ArrayList<Integer> f = new ArrayList<>(Arrays.asList(0,1,2,3)); 
     
     faces.add(new Face(new Point(x,y,z-trueTaille), taille));
     ArrayList<Integer> ba = new ArrayList<>(Arrays.asList(0,1,2,3));
@@ -61,7 +87,6 @@ class Shape{
     pointsUsed.add(f);
     pointsUsed.add(ba);
   }
-  
   void addFace(Face nextFace){
     faces.add(nextFace);
   }
@@ -81,6 +106,11 @@ class Shape{
   
   HashMap<Integer, Point> getPoints(){
     return points;
+  }
+  
+  void displayShape(int i, int j){
+    getFaces().get(i).displayFace();
+    getFaces().get(j).displayFace();
   }
   
   void displayShape(){

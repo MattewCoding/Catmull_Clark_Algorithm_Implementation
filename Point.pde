@@ -14,6 +14,17 @@ class Point {
   Point(){}
   
   /**
+   * Make a deep copy of a Point
+   *
+   * @param p The point we are making a deep copy of
+   */
+   Point(Point p){
+     this.x = p.getX();
+     this.y = p.getY();
+     this.z = p.getZ();
+   }
+  
+  /**
    * Créer un point à partir de ces coordonnées dans le repère
    * Constructeur avec entiers
    * @param initX le coordonnée X du point
@@ -59,8 +70,23 @@ class Point {
     return z;
   }
   
-  public void print(){
-    println(x + " " + y + " " + z);
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+
+    Point other = (Point) obj;
+    return this.x == other.x && this.y == other.y && this.z == other.z;
+  }
+  
+  @Override
+  public String toString() {
+    return x + " " + y + " " + z;
   }
   
   void displayPoint(){

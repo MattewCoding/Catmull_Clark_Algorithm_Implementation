@@ -2,12 +2,20 @@
  * Methods specifically for a/multiple Point/s
  */
  
- public Point averageOfPoints(ArrayList<Point> pts) throws ArithmeticException{
+ public Point averageOfPoints(ArrayList<Point> pts){
   Point centerP = new Point();
   for(Point p : pts){
     centerP = addPoints(centerP, p);
   }
-  return dividePoint(centerP, pts.size());
+  
+  Point res = new Point();
+  try{
+    res = dividePoint(centerP, pts.size());
+  } catch(ArithmeticException ae){
+    print("In averageOfPoints function: " + ae);
+    exit();
+  }
+  return res;
 }
 
 public Point addPoints(Point p1, Point p2){
@@ -16,7 +24,14 @@ public Point addPoints(Point p1, Point p2){
 
 public Point multiplyPoint(float f, Point p){
   if(f == 0.0) return new Point();
-  return dividePoint(p, 1/f);
+  Point res = new Point();
+  try{
+    res = dividePoint(p, 1/f);
+  } catch(ArithmeticException ae){
+    print("In multiplyPoint function: " + ae);
+    exit();
+  }
+  return res;
 }
 
 public Point dividePoint(Point p, float f) throws ArithmeticException{
