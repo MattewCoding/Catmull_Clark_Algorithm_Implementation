@@ -75,24 +75,34 @@ class Point {
     if (this == obj) {
       return true;
     }
-
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
 
     Point other = (Point) obj;
-    return this.x == other.x && this.y == other.y && this.z == other.z;
+    
+    float thresh = 0.001;
+    boolean xEq, yEq, zEq;
+    xEq = abs(this.x - other.x) < thresh;
+    yEq = abs(this.y - other.y) < thresh;
+    zEq = abs(this.z - other.z) < thresh;
+    
+    return xEq && yEq && zEq;
   }
   
   @Override
   public String toString() {
-    return x + " " + y + " " + z;
+    return "(" + x + ", " + y + ", " + z + ")";
   }
   
   void displayPoint(){
+    displayPoint(5);
+  }
+  
+  void displayPoint(int size){
     pushMatrix();
     translate(x,y,z);
-    sphere(5);
+    sphere(size);
     popMatrix();
   }
   

@@ -8,10 +8,20 @@ class Face{
   private Point centre = new Point(0,0,0);
   private Point rotation = new Point(0,0,0); // En radians
   
+  private int minX=0, minY=0, maxX=0, maxY=0;
+  
   /**
    * Initialiser une facette
    */
   Face(){}
+  
+  Face(int sX, int sY, int widthS, int heightS){
+    squareFromPoints(sX, sY, widthS, heightS, 0);
+  }
+  
+  Face(int sX, int sY, int widthS, int heightS, int z){
+    squareFromPoints(sX, sY, widthS, heightS, z);
+  }
   
   Face(Point firstPoint){
     addPoint(firstPoint);
@@ -35,6 +45,38 @@ class Face{
     this.rotation = new Point(f.getRotation());
   }
   
+  Face(Point p1, Point p2, Point p3, Point p4){
+    square(p1, p2, p3, p4);
+  }
+  
+  void squareFromPoints(int sX, int sY, int widthS, int heightS, int z){
+    minX = sX;
+    minY = sY;
+    maxX = sX + widthS;
+    maxY = sY + heightS;
+    
+    Point p1, p2, p3, p4;
+    p1 = new Point(minX, minY, z);
+    p2 = new Point(maxX, minY, z);
+    p3 = new Point(maxX, maxY, z);
+    p4 = new Point(minX, maxY, z);
+    
+    square(p1, p2, p3, p4);
+  }
+  
+  Face(Point... pts){
+    for(Point p : pts){
+      points.add(p);
+    }
+  }
+  
+  void square(Point p1, Point p2, Point p3, Point p4){
+    points.add(p1);
+    points.add(p2);
+    points.add(p3);
+    points.add(p4);
+  }
+  
   /**
    * Crée une facette avec un nombre spécifié de côtés et une taille donnée,
    * qui fait face à l'utilisateur.
@@ -46,7 +88,20 @@ class Face{
     centre = c;
     creerPolygonRegulier(nbCotes, taille/2);
   }
-
+  
+  /**
+   * Crée une facette avec un nombre spécifié de côtés et une taille donnée,
+   * anglé dans une direction
+   * 
+   * @param c Le point central de la facette
+   * @param r La rotation de la facette en radians
+   * @param nbCotes Le nombre de côtés de la facette
+   */
+  Face(Point c, Point r, int nbCotes, float taille){
+    centre = c;
+    rotation = r;
+    creerPolygonRegulier(nbCotes, taille/2);
+  }
   
   /**
    * Crée une facette avec 4 côtés face vers l'utilisateur.
@@ -101,7 +156,6 @@ class Face{
       float x = (float) (taille * Math.cos(angle));
       float y = (float) (taille * Math.sin(angle));
   
-      // Ajout du point avec une valeur arbitraire (50.0) à la liste
       points.add(new Point(x, y, 0));
     }
     
@@ -177,6 +231,22 @@ class Face{
    */
   public int getSize(){
     return points.size();
+  }
+  
+  public int getMinX(){
+    return minX;
+  }
+  
+  public int getMinY(){
+    return minY;
+  }
+  
+  public int getMaxX(){
+    return maxX;
+  }
+  
+  public int getMaxY(){
+    return maxY;
   }
   
   public String toString() {

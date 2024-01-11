@@ -1,6 +1,7 @@
 /**
  * Methods specifically for a/multiple Point/s
  */
+import java.util.Collection;
  
  public Point averageOfPoints(ArrayList<Point> pts){
   Point centerP = new Point();
@@ -12,7 +13,22 @@
   try{
     res = dividePoint(centerP, pts.size());
   } catch(ArithmeticException ae){
-    print("In averageOfPoints function: " + ae);
+    print("In averageOfPoints(ArrayList<Point>) function: " + ae + "\n");
+  }
+  return res;
+}
+
+public Point averageOfPoints(Collection<Point> pts){
+  Point centerP = new Point();
+  for(Point p : pts){
+    centerP = addPoints(centerP, p);
+  }
+  
+  Point res = new Point();
+  try{
+    res = dividePoint(centerP, pts.size());
+  } catch(ArithmeticException ae){
+    print("In averageOfPoints(Collection<Point>) function: " + ae + "\n");
     exit();
   }
   return res;
@@ -28,7 +44,7 @@ public Point multiplyPoint(float f, Point p){
   try{
     res = dividePoint(p, 1/f);
   } catch(ArithmeticException ae){
-    print("In multiplyPoint function: " + ae);
+    print("In multiplyPoint function: " + ae + "\n");
     exit();
   }
   return res;
