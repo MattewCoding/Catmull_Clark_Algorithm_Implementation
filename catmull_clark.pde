@@ -49,11 +49,9 @@ void setup(){
 
 Shape catmullClark(Shape s){
   Shape cc = new Shape();
-  
   for(Point p : s.getPoints().keySet()){
     cc = newPointCalc(s, p, s.getPoints().get(p), cc);
   }
-  
   return cc;
 }
 
@@ -88,7 +86,6 @@ void initLight(){
   fillMod(0.5, 0.5, 0.5);
 }
 
-float mux = 0.0;
 void draw(){
   background(0); // Black bg
   initLight();
@@ -110,12 +107,8 @@ void draw(){
     translate(width/2, height/2, shapeSize);
     rotateX(rx);
     rotateY(ry);
-    //fill(mux, mux, mux);
     cubeCC.displayShape();
   popMatrix();
-  
-  mux += 0.01;
-  if(mux>1.0) mux = 0.0;
   
   noLights();
   pushMatrix();

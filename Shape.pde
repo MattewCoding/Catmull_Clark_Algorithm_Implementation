@@ -37,7 +37,7 @@ class Shape{
   }
   
   /**
-   * Créer un cube
+   * Créer un polygone
    */
   Shape(Point centre, float taille, int shapeType){
     switch (shapeType){

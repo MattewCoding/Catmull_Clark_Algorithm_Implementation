@@ -47,11 +47,3 @@ public Point edgeCalc(Face f1, Face f2, Point avg1, Point avg2) throws RuntimeEx
 public ArrayList<Point> findCommonEdgePoints(Face f1, Face f2){
   return findCommonEdgePoints(f1.getPoints(), f2.getPoints());
 }
-
-public ArrayList<Point> findCommonEdgePoints(Face f, ArrayList<Point> a){
-  return findCommonEdgePoints(f.getPoints(), a);
-}
-
-public ArrayList<Point> findCommonEdgePoints(ArrayList<Point> a, Face f){
-  return findCommonEdgePoints(a, f.getPoints());
-}

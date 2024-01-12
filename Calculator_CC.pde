@@ -1,10 +1,10 @@
 import java.util.Arrays;
 import java.util.Set;
 import java.util.Iterator;
-
 /**
  * Methods specifically to implement the Catmull Clark algorithm
  */
+
 
 public Shape newPointCalc(Shape s, Point p, int ithPoint, Shape newShape){
   ArrayList<ArrayList<Integer>> pointsUsed = s.getPointsUsed();
@@ -15,11 +15,8 @@ public Shape newPointCalc(Shape s, Point p, int ithPoint, Shape newShape){
   
   HashMap<Point, ArrayList<Point>> facePoints = new HashMap<Point, ArrayList<Point>>();
   ArrayList<Point> edgeMidpoints = new ArrayList<Point>(); // Midpoint of vertexes to calculate THE VERTEX POINT
-  //ArrayList<Point> edgePoints = new ArrayList<Point>(); // Edge point for the NEW SHAPE
   
   // Finding the average of the face centers and the average of the midPoint of the vertexes
-  //print(ithPoint + ": " + facesWithPoint + "\n--------------------\n");
-
   for (int i : facesWithPoint) {
     Face faceI = getRealPosition(new Face(faces.get(i)));
 
@@ -40,10 +37,6 @@ public Shape newPointCalc(Shape s, Point p, int ithPoint, Shape newShape){
     }
     }
   }
-  //print(facePoints);
-  
-  //for(Point q : facePoints.keySet()) q.displayPoint(15);
-  //for(Point q : edgePoints) q.displayPoint(10);
   Point faceAvg = averageOfPoints(facePoints.keySet());
   Point edgeAvg = averageOfPoints(edgeMidpoints);
   
@@ -53,13 +46,6 @@ public Shape newPointCalc(Shape s, Point p, int ithPoint, Shape newShape){
   Point P = multiplyPoint(facesWithPoint.size()-3, p);
   
   newVertex = dividePoint(addPoints(addPoints(F, R), P), (float)facesWithPoint.size());
-
-/*
-  print("\n{");
-  for(Point pp : facePoints.keySet()){
-    print("\n  " + p + " = " + facePoints.get(pp) + ",");
-  }
-  print("\n}");*/
   newShape = connectCreatedPoints(newShape, newVertex, facePoints);
   
   return newShape;

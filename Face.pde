@@ -19,18 +19,6 @@ class Face{
     squareFromPoints(sX, sY, widthS, heightS, 0);
   }
   
-  Face(int sX, int sY, int widthS, int heightS, int z){
-    squareFromPoints(sX, sY, widthS, heightS, z);
-  }
-  
-  Face(Point firstPoint){
-    addPoint(firstPoint);
-  }
-  
-  Face(int x, int y, int z){
-    addPoint(x,y,z);
-  }
-  
   /**
    * Make a deep copy of a Face
    *
@@ -43,10 +31,6 @@ class Face{
     }
     this.centre = new Point(f.getCentre());
     this.rotation = new Point(f.getRotation());
-  }
-  
-  Face(Point p1, Point p2, Point p3, Point p4){
-    square(p1, p2, p3, p4);
   }
   
   void squareFromPoints(int sX, int sY, int widthS, int heightS, int z){
@@ -75,18 +59,6 @@ class Face{
     points.add(p2);
     points.add(p3);
     points.add(p4);
-  }
-  
-  /**
-   * Crée une facette avec un nombre spécifié de côtés et une taille donnée,
-   * qui fait face à l'utilisateur.
-   * 
-   * @param c Le point central de la facette.
-   * @param nbCotes Le nombre de côtés de la facette.
-   */
-  Face(Point c, int nbCotes, float taille){
-    centre = c;
-    creerPolygonRegulier(nbCotes, taille/2);
   }
   
   /**
@@ -161,27 +133,6 @@ class Face{
     
     // Affichage d'une ligne vide
     System.out.print("\n");
-  }
-
-  
-  /**
-   * Ajoute un point à la liste de points de la face.
-   *
-   * @param nextPoint Le point à ajouter à la liste.
-   */
-  public void addPoint(Point nextPoint){
-    points.add(nextPoint);
-  }
-  
-  /**
-   * Ajoute un point à la liste de points de la face en spécifiant les coordonnées x, y et z.
-   *
-   * @param x La coordonnée x du point.
-   * @param y La coordonnée y du point.
-   * @param z La coordonnée z du point.
-   */
-  public void addPoint(int x, int y, int z){
-    points.add(new Point(x, y, z));
   }
   
   public void modifyNthPoint(int value, Point newPoint){
