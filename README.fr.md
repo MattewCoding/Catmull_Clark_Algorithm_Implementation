@@ -5,7 +5,7 @@ Une implémentation de l'algorithme Catmull-Clark dans Processing (Java).
 
 ## Démarrage
 
-### Conditions préalables
+### Prérequis
 Assurez-vous que Processing est installé sur votre machine. Vous pouvez le télécharger à partir de Processing.org.
 
 ### Installation
