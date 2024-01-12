@@ -7,17 +7,18 @@
 int shapeSize = 0;
 int ccAmount=0, newCCAmount = 0, maxCCAmount = 4;
 Shape cubeCC;
-float brightness = 0.8;
+float brightness[] = {0.8, 0.8, 0.8};
 int reducedWidth;
 
 // Storing positions
-ArrayList<Face> panelObjects;
+ArrayList<Face> panelObjects, buttonObjects;
 float rx = 0.0, ry = 0.0, dz = 0.0;
-boolean[] locked = {false, false, false, false};
+boolean[] locked = {false, false, false, false, false};
+int ticked = 0, oldTicked = 0, oldSides = 3;
 int currBoxSel = 0;
-int[] sliderValues = {0,0,0,0};
+int[] sliderValues = {0,5,8,0,4};
 int sliderMin = 0, sliderMax = 100;
-int sizeMin = 0, sizeMax = 600;
+int sizeMin = 0, sizeMax = 500;
   
 // Creation variables
 int distBorder;
@@ -57,14 +58,14 @@ Shape catmullClark(Shape s){
 }
 
 void drawCube(){
-  cubeCC = new Shape(new Point(0, 0, 0), 300, 0);
+  cubeCC = new Shape(new Point(0, 0, 0), 300, ticked);
   for(int i = 0; i < ccAmount; i++){
     cubeCC = catmullClark(cubeCC);
   }
 }
 
 void fillMod(float x, float y, float z){
-  fill(x*brightness, y*brightness, z*brightness);
+  fill(x*brightness[0], y*brightness[1], z*brightness[2]);
 }
 
 int limitMap(int value, int minValue, int maxValue, int newMin, int newMax){
@@ -81,10 +82,13 @@ int limitValue(int value, int minValue, int maxValue){
 
 void initLight(){
   lightSpecular(1, 1, 1);
-  directionalLight(brightness, brightness, brightness, 0, 0, -1);
+  ambientLight(0.57,0.81,1.00);
+  directionalLight(0.57,0.81,1.00,0,1,0);
+  //directionalLight(0.54,0.77,0.86,0,-1,-0.25);
   fillMod(0.5, 0.5, 0.5);
 }
 
+float mux = 0.0;
 void draw(){
   background(0); // Black bg
   initLight();
@@ -95,8 +99,10 @@ void draw(){
   
   // Avoid constantly calling this resource-intensive algorithm when possible
   newCCAmount = sliderValues[3];
-  if(newCCAmount != ccAmount){
+  if(newCCAmount != ccAmount || oldTicked != ticked || oldSides != sliderValues[4]){
     ccAmount = newCCAmount;
+    oldTicked = ticked;
+    oldSides = sliderValues[4];
     drawCube();
   }
   
@@ -104,8 +110,25 @@ void draw(){
     translate(width/2, height/2, shapeSize);
     rotateX(rx);
     rotateY(ry);
+    //fill(mux, mux, mux);
     cubeCC.displayShape();
   popMatrix();
   
+  mux += 0.01;
+  if(mux>1.0) mux = 0.0;
+  
+  noLights();
+  pushMatrix();
+    translate(0,-350, -400);
+    fill(0.57,0.81,1.0);
+    new Face(0,0,width,height).displayFace();
+  popMatrix();
+  pushMatrix();
+    translate(0,350, -410);
+    fill(0.31,0.56,0.34);
+    new Face(0,0,width,height).displayFace();
+  popMatrix();
+  
+  noLights();
   drawSliders();
 }

@@ -56,7 +56,7 @@ class Shape{
   void makeTorus(float taille){
     ArrayList<Point> allPoints = new ArrayList<Point>();
     
-    int nbCotes = 10;
+    int nbCotes = sliderValues[4];
     double angleIncrement = 2 * Math.PI / nbCotes;
   
     // Pour que le bas du polygon soit paralèlle avec l'axe d'abscisses
@@ -65,7 +65,7 @@ class Shape{
       adjust = Math.PI / nbCotes;
     }
   
-    int widthTorus = 25;
+    int widthTorus = 50;
     // Calcul des coordonnées des points du polygone et ajout à la liste
     for (int i = 0; i < nbCotes; i++) {
       double angle = i * angleIncrement - adjust;
@@ -142,7 +142,7 @@ class Shape{
     float y = centre.y;
     float z = centre.z;
     
-    Face base = new Face(new Point(x,y+trueTaille,z), taille, new Point(PI/2, 0, 0));
+    Face base = new Face(new Point(x,y+trueTaille,z), new Point(PI/2, 0, 0), sliderValues[4], taille*2);
     Point top = new Point(addPoints(centre, new Point(0.0, -trueTaille, 0.0)));
     ArrayList<Point> allPoints = getRealPosition(base).getPoints();
     allPoints.add(top);
@@ -151,25 +151,17 @@ class Shape{
     }
     
     faces.add(base);
-    ArrayList<Integer> bs = new ArrayList<>(Arrays.asList(0,1,2,3));
-    
-    faces.add(new Face(allPoints.get(0), allPoints.get(1), allPoints.get(4)));
-    ArrayList<Integer> l = new ArrayList<>(Arrays.asList(0,1,4));
-    
-    faces.add(new Face(allPoints.get(1), allPoints.get(2), allPoints.get(4)));
-    ArrayList<Integer> bc = new ArrayList<>(Arrays.asList(1,2,4));
-    
-    faces.add(new Face(allPoints.get(2), allPoints.get(3), allPoints.get(4)));
-    ArrayList<Integer> r = new ArrayList<>(Arrays.asList(2,3,4));
-    
-    faces.add(new Face(allPoints.get(3), allPoints.get(0), allPoints.get(4)));
-    ArrayList<Integer> f = new ArrayList<>(Arrays.asList(3,0,4));
-    
+    ArrayList<Integer> bs = new ArrayList<Integer>();
+    for(int i = 0; i < sliderValues[4]; i++){
+      bs.add(i);
+    }
     pointsUsed.add(bs);
-    pointsUsed.add(l);
-    pointsUsed.add(bc);
-    pointsUsed.add(r);
-    pointsUsed.add(f);
+      
+    for(int i = 0; i < sliderValues[4]; i++){
+      faces.add(new Face(allPoints.get(i), allPoints.get((i+1)%sliderValues[4]), allPoints.get(sliderValues[4])));
+      ArrayList<Integer> faceNums = new ArrayList<Integer>(Arrays.asList(i,(i+1)%sliderValues[4],sliderValues[4]));
+      pointsUsed.add(faceNums);
+    }
   }
   
   void makeCube(Point centre, float taille){
